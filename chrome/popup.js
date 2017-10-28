@@ -95,6 +95,52 @@ function saveBackgroundColor(url, color) {
   chrome.storage.sync.set(items);
 }
 
+function myMove() {
+    var elem = document.getElementById("animate"); 
+    var pos = 0;
+    var id = setInterval(frame, 5);
+    function frame() {
+        if (pos == 350) {
+            clearInterval(id);
+        } else {
+            pos++; 
+            elem.style.top = pos + 'px'; 
+            elem.style.left = pos + 'px'; 
+        }
+    }
+}
+
+function titleAnimation() {
+  var title = 'checking for impostors';
+  var titleRandom = '';
+  var possible = "-+*/|}{[]~\\\":;?/.><=+-_)(*&^%$#@!)}";
+  for( var i=0; i < title.length+1; i++ ) {
+    titleRandom = title.substr(0, i);
+    for( var j=i; j < title.length; j++ ) { 
+      titleRandom += possible.charAt(Math.floor(Math.random() * possible.length)); 
+    }
+    generateRandomTitle(i, titleRandom);
+    titleRandom = '';
+  }
+}
+
+function generateRandomTitle(i, titleRandom) {
+  setTimeout( function() {
+    var elem = document.getElementById("animate");
+    elem.innerHTML = titleRandom;
+  }, i*70 );
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  getCurrentTabUrl((url) => {
+    titleAnimation();
+    titleAnimation();
+  });
+});
+
+
 // This extension loads the saved background color for the current tab if one
 // exists. The user can select a new background color from the dropdown for the
 // current page, and it will be saved as part of the extension's isolated
@@ -103,24 +149,24 @@ function saveBackgroundColor(url, color) {
 // to a document's origin. Also, using chrome.storage.sync instead of
 // chrome.storage.local allows the extension data to be synced across multiple
 // user devices.
-document.addEventListener('DOMContentLoaded', () => {
-  getCurrentTabUrl((url) => {
-    var dropdown = document.getElementById('dropdown');
+// document.addEventListener('DOMContentLoaded', () => {
+//   getCurrentTabUrl((url) => {
+//     var dropdown = document.getElementById('dropdown');
 
-    // Load the saved background color for this page and modify the dropdown
-    // value, if needed.
-    getSavedBackgroundColor(url, (savedColor) => {
-      if (savedColor) {
-        changeBackgroundColor(savedColor);
-        dropdown.value = savedColor;
-      }
-    });
+//     // Load the saved background color for this page and modify the dropdown
+//     // value, if needed.
+//     getSavedBackgroundColor(url, (savedColor) => {
+//       if (savedColor) {
+//         changeBackgroundColor(savedColor);
+//         dropdown.value = savedColor;
+//       }
+//     });
 
-    // Ensure the background color is changed and saved when the dropdown
-    // selection changes.
-    dropdown.addEventListener('change', () => {
-      changeBackgroundColor(dropdown.value);
-      saveBackgroundColor(url, dropdown.value);
-    });
-  });
-});
+//     // Ensure the background color is changed and saved when the dropdown
+//     // selection changes.
+//     dropdown.addEventListener('change', () => {
+//       changeBackgroundColor(dropdown.value);
+//       saveBackgroundColor(url, dropdown.value);
+//     });
+//   });
+// });

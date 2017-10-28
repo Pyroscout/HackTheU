@@ -1,2 +1,9 @@
 Why are assembly programmers so wet?
 Because they're below C level
+
+{
+ "kind": "prediction#training",
+ "id": "beallendall-184300",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/beallendall-184300/trainedmodels/beallendall-184300",
+ "storageDataLocation": "fake_news_bucket/fake_or_real_news.csv"
+}

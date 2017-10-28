@@ -110,10 +110,12 @@ function myMove() {
     }
 }
 
-function titleAnimation() {
+function test() {
   var title = 'checking for impostors';
   var titleRandom = '';
   var possible = "-+*/|}{[]~\\\":;?/.><=+-_)(*&^%$#@!)}";
+  var i = 0
+  var id = setInterval(generateRandomTitle, 70);
   for( var i=0; i < title.length+1; i++ ) {
     titleRandom = title.substr(0, i);
     for( var j=i; j < title.length; j++ ) { 
@@ -131,12 +133,36 @@ function generateRandomTitle(i, titleRandom) {
   }, i*70 );
 }
 
+function titleAnimation(repeat) {
+  var title = 'checking for impostors';
+  var titleRandom = '';
+  var possible = "-+*/|}{[]~\\\":;?/.><=+-_)(*&^%$#@!)}";
+  var i = 0;
+  var id = setInterval(frame, 100);
+  function frame() {
+    titleRandom = title.substr(0, i);
+    for( var j=i; j < title.length; j++ ) { 
+      titleRandom += possible.charAt(Math.floor(Math.random() * possible.length)); 
+    }
+    document.getElementById("animate").innerHTML = titleRandom;
+    titleRandom = '';
+    if(i === title.length) {
+      clearInterval(id);
+      if(repeat) {
+        setTimeout(titleAnimation, 2000);
+      }
+    }
+    i++;
+  }
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
   getCurrentTabUrl((url) => {
-    titleAnimation();
-    titleAnimation();
+    var repeat = true;
+    titleAnimation(repeat);
+    repeat = false;
   });
 });
 

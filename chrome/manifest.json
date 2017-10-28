@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Impostor Syndrome",
+  "description": "This extension allows the user to check the validity of an article url and determines if the article is FAKE NEWS!",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Click here!"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
